@@ -24,7 +24,7 @@ const LMDetail = () => {
     const [isAdding, setIsAdding] = useState(false); // 新增状态控制编辑模式
   
     const navigate = useNavigate();
-    const userId = 'BEOLCzjnxLRI9OxdNWf5oQjOBC63';
+    const userId = sessionStorage.getItem('userId');
     const skillId = sessionStorage.getItem('skillId');
     const LMId = sessionStorage.getItem('LMId');
   
@@ -37,7 +37,7 @@ const LMDetail = () => {
     useEffect(() => {
       const fetchData = async () => {
         let lm_detail = {};  // 在這裡定義 lm_detail，保證其在任何情況下都是有效的
-        if (LMId === '-1') {
+        if (LMId.toString() === '-1') {
           setIsAdding(true); // If LMId is -1, enter add mode
           setIsEditing(true);
           lm_detail = {
@@ -83,6 +83,10 @@ const LMDetail = () => {
         setLoading(false);
       }
     }, [pageItem, modifiedItem]); // pageItem is the dependency, so this runs after it updates
+    // 提前return加載狀態，避免未加載完成時渲染資料
+    if (loading) {
+      return <Typography variant="body1">Loading...</Typography>;
+    }
   
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -128,11 +132,6 @@ const LMDetail = () => {
         return "Learning material name must be unique";
       }
       return ''; // 否則返回 true，表示有效
-    }
-
-    // 提前return加載狀態，避免未加載完成時渲染資料
-    if (loading) {
-      return <Typography variant="body1">Loading...</Typography>;
     }
   
     return (
@@ -260,7 +259,7 @@ const LMDetail = () => {
               variant={isEditing ? "outlined" : "contained"}
               color={isEditing ? "secondary" : "primary"}
               onClick={async () => {
-                if (isEditing && LMId === '-1') {
+                if (isEditing && LMId.toString() === '-1') {
                   navigate("/skill-detail")
                 }
                 setIsEditing(!isEditing); // 点击按钮切换编辑状态

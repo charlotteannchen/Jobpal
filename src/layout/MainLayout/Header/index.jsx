@@ -5,20 +5,29 @@ import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 
 // project imports
 import LogoSection from '../LogoSection';
-import SearchSection from './SearchSection';
-import NotificationSection from './NotificationSection';
-import ProfileSection from './ProfileSection';
+import { useFirebase } from 'contexts/FirebaseContext';
 
 // assets
-import { IconMenu2 } from '@tabler/icons-react';
+import { IconMenu2, IconLogout } from '@tabler/icons-react';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const theme = useTheme();
+  const { logout } = useFirebase();
+
+  // For changing login/logout automatically
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
 
   return (
     <>
@@ -57,14 +66,25 @@ const Header = ({ handleLeftDrawerToggle }) => {
         </ButtonBase>
       </Box>
 
-      {/* header search */}
-      <SearchSection />
-      <Box sx={{ flexGrow: 1 }} />
-      <Box sx={{ flexGrow: 1 }} />
-
-      {/* notification & profile */}
-      <NotificationSection />
-      <ProfileSection />
+      {/* Logout Button */}
+      <ListItemButton
+        onClick={handleLogout}
+        sx={{
+          borderRadius: '60px',          // 保持圓角
+          width: 'auto',                 // 根據內容自動調整寬度
+          padding: '8px 16px',           // 調整內邊距縮小按鈕大小
+          justifyContent: 'flex-end',    // 使內容對齊右側
+          marginLeft: 'auto',            // 讓按鈕靠右邊顯示
+          display: 'flex',               // 設置為 flex 排版
+          alignItems: 'center',          // 垂直居中
+          maxWidth: '150px',             // 限制最大寬度，避免過大
+        }}
+      >
+        <ListItemIcon>
+          <IconLogout stroke={1.5} size="1.3rem" />
+        </ListItemIcon>
+        <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
+      </ListItemButton>
     </>
   );
 };

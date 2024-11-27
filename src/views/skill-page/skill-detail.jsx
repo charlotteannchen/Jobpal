@@ -8,12 +8,11 @@ import { Box, Typography, Button, Chip, TextField, Grid, Card } from "@mui/mater
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
-import { getAllSkills, getSkillDetails, deleteSkill, addSkill, updateSkill, getAllLMs } from '../../contexts/FirestoreAPI';
+import { getAllSkills, getSkillDetails, deleteSkill, addSkill, updateSkill, getAllLMs, getJobDetails } from '../../contexts/FirestoreAPI';
 
 // ==============================|| LMBox ||============================== //
 const LMBox = ({ LMId, label }) => {
   const navigate = useNavigate();
-
   const handleClick = () => {
     // 保存 LMId
     sessionStorage.setItem('LMId', LMId);
@@ -50,8 +49,9 @@ LMBox.propTypes = {
 
 const SkillDetail = () => {
   // 狀態來存儲技能數據
-  const [skill, setSkill] = useState(null);
-  const [otherSkillName, setOtherSkillName] = useState([]);
+  const [pageItem, setPageItem] = useState(null);
+  const [modifiedItem, setModifiedItem] = useState(null);
+  const [otherItemName, setOtherItemName] = useState([]);
   const [error, setError] = useState(null);
   const [LMs, setLM] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +59,7 @@ const SkillDetail = () => {
   const [isAdding, setIsAdding] = useState(false); // 新增状态控制编辑模式
 
   const navigate = useNavigate();
-  const userId = 'BEOLCzjnxLRI9OxdNWf5oQjOBC63';
+  const userId = sessionStorage.getItem('userId');;
   const skillId = sessionStorage.getItem('skillId');
 
   if (!userId || !skillId) {
@@ -70,10 +70,11 @@ const SkillDetail = () => {
   // 檢查是否為新增模式
   useEffect(() => {
     const fetchSkillData = async () => {
-      if (skillId === '-1') {
+      let skill_detail = {};
+      if (skillId.toString() === '-1') {
         setIsAdding(true); // If skillId is -1, enter add mode
         setIsEditing(true);
-        setSkill({
+        skill_detail = {
           name: '',
           description: '',
           related_job: [],
@@ -81,93 +82,90 @@ const SkillDetail = () => {
           n_finished: 0,
           status: 1,
           note: '',
-        });
-        setLoading(false);
+        };
       } else {
         setIsAdding(false);
         setIsEditing(false);  // Set editing mode if skillId is valid
         try {
-          const skill_detail = await getSkillDetails(userId, skillId);
-          setSkill(skill_detail);  // Set the fetched skill data
+          skill_detail = await getSkillDetails(userId, skillId);
+          console.log("Fetching skill details success");
           const LM_all = await getAllLMs(userId, skillId);
           setLM(LM_all)
         } catch (err) {
           setError(err.message);  // Set error message
           console.error("Error fetching skill details:", err);
-        } finally {
-          setLoading(false);  // Update loading state
         }
       }
+      setPageItem(skill_detail);
+      setModifiedItem(skill_detail);
     };
 
-    const getOtherSkillName = async (userId, skillId) => {
+    const getOtherItemName = async () => {
       try {
-        // Fetch all skills
-        const allSkills = await getAllSkills(userId);
-    
-        // Filter out the current skill by ID
-        const skillsExcludingCurrent = allSkills.filter(skill => skill.id !== skillId);
-    
-        // Create a list of skill names from the filtered skills
-        const skillNames = skillsExcludingCurrent.map(skill => skill.name);
-        setOtherSkillName(skillNames)
+        const allItems = await getAllSkills(userId);
+        const itemsExcludingCurrent = allItems.filter(skill => skill.id !== skillId);
+        const itemNames = itemsExcludingCurrent.map(skill => skill.name);
+        setOtherItemName(itemNames)
       } catch (error) {
         console.error("Error fetching or processing skills:", error);
-        setOtherSkillName([]); // Return an empty list if there's an error
+        setOtherItemName([]); // Return an empty list if there's an error
       }
     };
 
     fetchSkillData();  // Call the function to fetch skill data
-    getOtherSkillName(userId, skillId);
+    getOtherItemName();
   }, [skillId, userId]);  // Re-run the effect when skillId or userId changes
 
+  useEffect(() => {
+    if (pageItem && modifiedItem) {
+      setLoading(false);
+    }
+  }, [pageItem, modifiedItem]);
   // 提前return加載狀態，避免未加載完成時渲染資料
-  if (loading || !skill) {
+  if (loading) {
     return <Typography variant="body1">Loading...</Typography>;
   }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setModifiedItem({
+      ...modifiedItem,
+      [name]: value,
+    });
+  };
 
   // 编辑模式下的保存操作
   const handleSave = async () => {
     console.log("Save button clicked!"); // 測試按鈕點擊
-
     // 檢查 skill.name
-    if (checkSkillName(skill.name)) {
+    if (!!checkItemName(modifiedItem.name)) {
+      console.error("Name invalid");
       return;
     }
-
+    setPageItem(modifiedItem);
     try {
       if (isAdding) {
         // 等待 addSkill 完成並獲取返回的 skillId
-        const result = await addSkill(userId, skill);
+        const result = await addSkill(userId, modifiedItem);
         sessionStorage.setItem('skillId', result.skillId);
-        setIsAdding(false); // 保存后退出编辑模式
-        setIsEditing(false); // 保存后退出编辑模式
+        console.log("Adding new skill success");
       } else {
-        const result = await updateSkill(userId, skillId, skill);
-
-        if (result === 1) {
-          console.log('Skill updated successfully.');
-          // 繼續處理其他成功邏輯
-        } else if (typeof result === 'string') {
-          console.warn(result); // 處理名稱重複等特殊情況
-        } else {
-          console.error('Failed to update the skill.');
-          // 處理失敗邏輯，例如提示錯誤訊息
-        }
-        setIsEditing(false); // 保存后退出编辑模式
+        await updateSkill(userId, skillId, modifiedItem);
+        console.log("Updateing skill success");
       };
-      
+      setIsAdding(false); // 保存后退出编辑模式
+      setIsEditing(false); // 保存后退出编辑模式
     } catch (error) {
       console.error("Error saving skill:", error);
       setError("An error occurred while saving the skill.");
     }
   };
 
-  const checkSkillName = (name) => {
+  const checkItemName = (name) => {
     if (!name || name.trim() === '') {
       return "Skill name is required"; // 如果是空或只有空格
     }
-    const isDuplicate = otherSkillName.some(n => n === name);
+    const isDuplicate = otherItemName.some(n => n === name);
     if (isDuplicate) {
       return "Skill name must be unique";
     }
@@ -198,16 +196,16 @@ const SkillDetail = () => {
             <Typography component="dd" variant="body1">
             {isEditing ? (
                 <TextField
-                  value={skill.name}
-                  onChange={(e) => setSkill({ ...skill, name: e.target.value })}
                   fullWidth
                   multiline
-                  rows={1}
-                  error={checkSkillName(skill.name)}  // 當checkSkillName(skill.name)不為空時，顯示錯誤
-                  helperText={checkSkillName(skill.name)}  // 顯示錯誤訊息
+                  name="name"
+                  value={modifiedItem.name}
+                  onChange={handleChange}
+                  error={!!checkItemName(modifiedItem.name)}  // 當checkItemName(pageItem.name)不為空時，顯示錯誤
+                  helperText={checkItemName(modifiedItem.name)}  // 顯示錯誤訊息
                 />
               ) : (
-                skill.name
+                pageItem.name
               )}
             </Typography>
 
@@ -218,14 +216,15 @@ const SkillDetail = () => {
             <Typography component="dd" variant="body1">
             {isEditing ? (
                 <TextField
-                  value={skill.description}
-                  onChange={(e) => setSkill({ ...skill, description: e.target.value })}
                   fullWidth
                   multiline
                   rows={4}
+                  name="description"
+                  value={modifiedItem.description}
+                  onChange={handleChange}
                 />
               ) : (
-                skill.description
+                pageItem.description
               )}
             </Typography>
     
@@ -234,21 +233,16 @@ const SkillDetail = () => {
               Related Jobs:
             </Typography>
             <Typography component="dd" variant="body1">
-              {isEditing ? (
-                <TextField
-                  value={skill.related_job.join(", ")}
-                  onChange={(e) =>
-                    setSkill({ ...skill, related_job: e.target.value.split(", ") })
-                  }
-                  fullWidth
-                />
-              ) : (
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, marginTop: 1 }}>
-                  {skill.related_job.map((job, index) => (
-                    <Chip key={index} label={job} color="primary" />
+                  {pageItem.related_job.map((job, index) => (
+                    <Chip key={index} label={job.name} color="primary"
+                      onClick={() => {
+                          sessionStorage.getItem('jobId', job.id);
+                          navigate('/job-detail')
+                        }
+                      }/>
                   ))}
                 </Box>
-              )}
             </Typography>
     
             {/* Skill Status */}
@@ -257,9 +251,9 @@ const SkillDetail = () => {
             </Typography>
             <Typography component="dd" variant="body1">
               <Chip
-                label={skill.status === 0 ? "In progress" : "Finished"}
+                label={pageItem.status === 0 ? "In progress" : "Finished"}
                 sx={{
-                  backgroundColor: skill.status === 0 ? "#ffccbc" : "#dcedc8",
+                  backgroundColor: pageItem.status === 0 ? "#ffccbc" : "#dcedc8",
                   color: "#000",
                   marginTop: 1,
                 }}
@@ -271,28 +265,23 @@ const SkillDetail = () => {
               Notes:
             </Typography>
             <Typography component="dd" variant="body1">
-              {isEditing ? (
-                <TextField
-                  value={skill.note}
-                  onChange={(e) => setSkill({ ...skill, note: e.target.value })}
-                  fullWidth
-                  multiline
-                  rows={4}
-                />
-              ) : (
-                skill.note
-              )}
+              <TextField
+                fullWidth
+                multiline
+                rows={6}
+                name="note"
+                value={modifiedItem.note}
+                onChange={handleChange}
+              />
             </Typography>
           </Box>
 
-          {/* save按钮 - 仅在编辑模式下显示 */}
-          {isEditing && (
-            <Box sx={{ mt: 3, display: "flex",justifyContent: 'flex-end' }}>
-              <Button variant="contained" color="primary" onClick={handleSave}>
-                Save
-              </Button>
-            </Box>
-          )}
+          {/* save按钮 */}
+          <Box sx={{ mt: 3, display: "flex",justifyContent: 'flex-end' }}>
+            <Button variant="contained" color="primary" onClick={handleSave}>
+              {isEditing ? "Save all" : "Save notes"}
+            </Button>
+          </Box>
 
           {/* Back按钮 */}
           <Button
@@ -303,17 +292,17 @@ const SkillDetail = () => {
             }} // 点击按钮切换编辑状态
           >Back</Button>
 
-          {/* 保存/edit按钮 */}
+          {/* cancel/edit按钮 */}
           <Button
-            variant="contained"
-            color="primary"
+            variant={isEditing ? "outlined" : "contained"}
+            color={isEditing ? "secondary" : "primary"}
             onClick={async () => {
-              if (isEditing && skillId === '-1') {
+              if (isEditing && skillId.toString() === '-1') {
                 navigate("/skill-page")
               }
               setIsEditing(!isEditing); // 点击按钮切换编辑状态
-              const skill_detail = await getSkillDetails(userId, skillId);
-              setSkill(skill_detail);
+              const pageItem_detail = await getSkillDetails(userId, skillId);
+              setPageItem(pageItem_detail);
             }} 
           >
             {isEditing ? "Cancel" : "Edit"}

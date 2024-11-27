@@ -55,7 +55,7 @@ SkillBox.propTypes = {
 const SkillPage = () => {
   const theme = useTheme();
   
-  const userId = 'BEOLCzjnxLRI9OxdNWf5oQjOBC63';
+  const userId = sessionStorage.getItem('userId');
 
   // 狀態來存儲技能數據
   const [skills, setSkills] = useState([]);

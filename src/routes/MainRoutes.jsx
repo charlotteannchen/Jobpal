@@ -13,11 +13,10 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard')));
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 const ProfilePage = Loadable(lazy(() => import('views/profile-page')));
 const JobPage = Loadable(lazy(() => import('views/job-page')));
+const JobDetail = Loadable(lazy(() => import('views/job-page/job-detail')));
 const SkillPage = Loadable(lazy(() => import('views/skill-page')));
 const SkillDetail = Loadable(lazy(() => import('views/skill-page/skill-detail')));
 const LMDetail = Loadable(lazy(() => import('views/skill-page/lm-detail')));
-const Job1 = Loadable(lazy(() => import('views/job-page/job1')));
-const Job3 = Loadable(lazy(() => import('views/job-page/job3')));
 const Test = Loadable(lazy(() => import('views/skill-page/test')));
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -60,6 +59,14 @@ const MainRoutes = {
       )
     },
     {
+      path: 'job-detail',
+      element: (
+        <ProtectedRoute>
+          <JobDetail />
+        </ProtectedRoute>
+      )
+    },
+    {
       path: 'skill-page',
       element: (
         <ProtectedRoute>
@@ -80,22 +87,6 @@ const MainRoutes = {
       element: (
         <ProtectedRoute>
           <LMDetail />
-        </ProtectedRoute>
-      )
-    },
-    {
-      path: 'job-page/job1',
-      element: (
-        <ProtectedRoute>
-          <Job1 />
-        </ProtectedRoute>
-      )
-    }, 
-    {
-      path: 'job-page/job3',
-      element: (
-        <ProtectedRoute>
-          <Job3 />
         </ProtectedRoute>
       )
     },

@@ -111,12 +111,16 @@ export const FirebaseProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const userId = userCredential.user.uid;
+    sessionStorage.setItem('userId', userId); // 插入 userId
     await fetchUserData(userCredential.user.uid);
     return userCredential;
   };
 
   const register = async (email, password, additionalData) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userId = userCredential.user.uid;
+    sessionStorage.setItem('userId', userId); // 插入 userId
     
     await setDoc(doc(db, 'users', userCredential.user.uid), {
       firstName: additionalData.firstName,
@@ -139,6 +143,8 @@ export const FirebaseProvider = ({ children }) => {
   const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     const userCredential = await signInWithPopup(auth, provider);
+    const userId = userCredential.user.uid;
+    sessionStorage.setItem('userId', userId); // 插入 userId
     
     // Check if user profile exists, if not create it
     const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));

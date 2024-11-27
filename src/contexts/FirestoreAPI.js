@@ -18,6 +18,123 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// ==============================|| job API ||============================== //
+export const getJobDetails = async (uid, jobId) => {
+  try {
+    const jobDocRef = doc(db, 'users', uid, 'jobs', jobId);
+    const jobDoc = await getDoc(jobDocRef);
+
+    if (jobDoc.exists()) {
+      return jobDoc.data();
+    } else {
+      throw new Error('Job not found');
+    }
+  } catch (error) {
+    console.error('Error fetching job details:', error);
+    throw error;
+  }
+};
+
+export const deleteJob = async (uid, jobId) => {
+  if (!uid || !jobId) {
+    console.error('Invalid parameters: uid or jobId is missing');
+    return 0; // 明確回傳失敗代碼
+  }
+
+  try {
+    const jobDocRef = doc(db, 'users', uid, 'jobs', jobId);
+    await deleteDoc(jobDocRef);
+    console.log(`Job with ID ${jobId} deleted successfully`);
+    return 1; // 明確回傳成功代碼
+  } catch (error) {
+    console.error('Error deleting job:', error);
+    return 0; // 回傳失敗代碼而非拋出錯誤
+  }
+};
+
+export const addJob = async (uid, job) => {
+  try {
+    // 檢查 job.name 是否為空字串
+    if (!job.name || job.name.trim() === '') {
+      return 'Job name cannot be empty';
+    }
+
+    const jobsRef = collection(db, 'users', uid, 'jobs');
+
+    // 檢查是否有重複的技能名稱
+    const q = query(jobsRef, where('name', '==', job.name));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      throw new Error(`Job "${job.name}" already exists`);
+    }
+
+    // 新增技能（自動生成文檔 ID）
+    const newJobRef = doc(jobsRef); 
+    await setDoc(newJobRef, job);
+    console.log(`Job "${job.name}" added successfully with ID: ${newJobRef.id}`);
+    return { jobId: newJobRef.id };  // 返回新技能的 ID
+  } catch (error) {
+    console.error('Error adding job:', error);
+    throw error;
+  }
+};
+
+export const getAllJobs = async (uid) => {
+  try {
+    const jobsRef = collection(db, 'users', uid, 'jobs');
+    const querySnapshot = await getDocs(jobsRef);
+
+    if (querySnapshot.empty) {
+      console.log('No Jobs found for this user.');
+      return []; // 返回空數組
+    }
+
+    const Jobs = [];
+    querySnapshot.forEach((doc) => {
+      Jobs.push({ id: doc.id, ...doc.data() }); // 包含文檔 ID 和技能資料
+    });
+
+    return Jobs;
+  } catch (error) {
+    console.error('Error fetching all Jobs:', error);
+    throw error;
+  }
+};
+
+// 修改技能資料的函數
+export const updateJob = async (uid, jobId, updatedJob) => {
+  if (!uid || !jobId || !updatedJob || !updatedJob.name) {
+    console.error('Invalid parameters: Missing uid, jobId, or updatedJob data');
+    return 0; // 返回失敗代碼
+  }
+  
+  try {
+    const jobsRef = collection(db, 'users', uid, 'jobs');
+    const q = query(jobsRef, 
+      where('name', '==', updatedJob.name), // 檢查技能名稱是否重複
+      where('__name__', '!=', jobId) // Firestore 文檔 ID 是 `__name__`
+    );
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      console.warn(`Job with name "${updatedJob.name}" already exists.`);
+      return `Job with name "${updatedJob.name}" already exists`; // 返回具體錯誤訊息
+    }
+
+    // 更新技能文檔
+    const JobRef = doc(db, 'users', uid, 'jobs', jobId); // 獲取指定技能的文檔引用
+    await updateDoc(JobRef, updatedJob); // 更新技能資料
+    console.log(`Job with ID ${jobId} updated successfully`);
+    return 1; // 成功代碼
+  } catch (error) {
+    console.error('Error updating job:', error);
+    return 0;
+  }
+};
+
+// ==============================|| skill API ||============================== //
+
 export const getSkillDetails = async (uid, skillId) => {
   try {
     const skillDocRef = doc(db, 'users', uid, 'skills', skillId);

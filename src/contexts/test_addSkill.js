@@ -11,7 +11,7 @@ const skill = {
     note: '',
 }
 
-const userId = 'BEOLCzjnxLRI9OxdNWf5oQjOBC63';
+const userId = sessionStorage.getItem('userId');;
 
 addSkill(userId, skill).then(response => {
     console.log('Skill added with ID:', response.skillId);

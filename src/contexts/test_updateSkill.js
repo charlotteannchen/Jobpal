@@ -11,7 +11,7 @@ const skill = {
     note: '',
 }
 
-const userId = 'BEOLCzjnxLRI9OxdNWf5oQjOBC63';
+const userId = sessionStorage.getItem('userId');
 const skillId = 'mJ3RWqbbL0Hr6Gkw535I';
 
 updateSkill(userId, skillId, skill).then(response => {

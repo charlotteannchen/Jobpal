@@ -1,7 +1,7 @@
 import { getSkillDetails, deleteSkill, addSkill, updateSkill } from './FirestoreAPI.js';
 
-const userId = 'BEOLCzjnxLRI9OxdNWf5oQjOBC63';
-const skillId = '5LLhM8X6HJZlVxzua6rI';
+const userId = sessionStorage.getItem('userId');;
+const skillId = sessionStorage.getItem('skillId');
 
 getSkillDetails(userId, skillId).then(response => {
     console.log('Skill get:', response);
