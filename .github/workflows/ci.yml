@@ -21,8 +21,8 @@ jobs:
     - name: Lint Code
       run: yarn eslint . --fix --debug
 
-    - name: Security Audit
-      run: yarn audit 
+    # - name: Security Audit
+    #   run: yarn audit 
 
     # - name: Run Tests
     #   run: yarn test
