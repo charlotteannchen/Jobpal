@@ -10,7 +10,7 @@
   "type": "module",
   "homepage": "https://berrydashboard.io/free",
   "scripts": {
-    "start": "serve -s dist -l $PORT",
+    "start": "serve -s dist -l ${PORT:-3000}",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
