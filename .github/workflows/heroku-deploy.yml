@@ -11,7 +11,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
           cache: 'yarn'
       - run: yarn install
       - uses: akhileshns/heroku-deploy@v3.12.12 # This action deploys the content on Heroku
