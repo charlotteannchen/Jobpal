@@ -11,6 +11,7 @@ export default defineConfig({
     setupFiles: './vitest.setup.js',
     globals: true,
     silent : true,
+    reporters: ['verbose'],
   },
   resolve: {
     alias: {
