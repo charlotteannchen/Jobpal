@@ -1,19 +1,16 @@
 // import { useState, useEffect } from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';  // Added useContext import
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { useContext, useEffect, useState } from 'react'; // Added useContext import
 
 import { FirebaseContext } from 'contexts/FirebaseContext';
-import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -22,15 +19,16 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // third party
-import * as Yup from 'yup';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 // project imports
-import Google from 'assets/images/icons/social-google.svg';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
 
@@ -108,7 +106,7 @@ const AuthRegister = ({ ...others }) => {
             .required('Password is required'),
           confirmPassword: Yup.string()
             .oneOf([Yup.ref('password'), null], 'Passwords must match')
-            .required('Confirm password is required'),
+            .required('Please confirm password'),
           fname: Yup.string().max(255).required('First name is required'),
           lname: Yup.string().max(255).required('Last name is required'),
           phone: Yup.string().max(15).required('Phone number is required'),
@@ -163,6 +161,7 @@ const AuthRegister = ({ ...others }) => {
                   error={Boolean(touched.fname && errors.fname)}
                   helperText={touched.fname && errors.fname}
                   sx={{ ...theme.typography.customInput }}
+                  data-testid="first-name-input"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -178,6 +177,7 @@ const AuthRegister = ({ ...others }) => {
                   error={Boolean(touched.lname && errors.lname)}
                   helperText={touched.lname && errors.lname}
                   sx={{ ...theme.typography.customInput }}
+                  data-testid="last-name-input"
                 />
               </Grid>
             </Grid>
@@ -192,9 +192,10 @@ const AuthRegister = ({ ...others }) => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 inputProps={{}}
+                data-testid="email-input"
               />
               {touched.email && errors.email && (
-                <FormHelperText error id="standard-weight-helper-text--register">
+                <FormHelperText error id="standard-weight-helper-text--register" data-testid="email-error">
                   {errors.email}
                 </FormHelperText>
               )}
@@ -227,9 +228,10 @@ const AuthRegister = ({ ...others }) => {
                   </InputAdornment>
                 }
                 inputProps={{}}
+                data-testid="password-input"
               />
               {touched.password && errors.password && (
-                <FormHelperText error id="standard-weight-helper-text-password-register">
+                <FormHelperText error id="standard-weight-helper-text-password-register" data-testid="password-error">
                   {errors.password}
                 </FormHelperText>
               )}
@@ -260,9 +262,10 @@ const AuthRegister = ({ ...others }) => {
                   </InputAdornment>
                 }
                 inputProps={{}}
+                data-testid="confirm-password-input"
               />
               {touched.confirmPassword && errors.confirmPassword && (
-                <FormHelperText error id="standard-weight-helper-text-confirm-password-register">
+                <FormHelperText error id="standard-weight-helper-text-confirm-password-register" data-testid="confirm-password-error">
                   {errors.confirmPassword}
                 </FormHelperText>
               )}
@@ -283,6 +286,21 @@ const AuthRegister = ({ ...others }) => {
               error={Boolean(touched.phone && errors.phone)}
               helperText={touched.phone && errors.phone}
               sx={{ ...theme.typography.customInput }}
+              data-testid="phone-input"
+            />
+            <TextField
+              fullWidth
+              label="Phone"
+              margin="normal"
+              name="phone"
+              type="text"
+              value={values.phone}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              error={Boolean(touched.phone && errors.phone)}
+              helperText={touched.phone && errors.phone}
+              sx={{ ...theme.typography.customInput }}
+              data-testid="phone-input"
             />
 
             <FormControl fullWidth error={Boolean(touched.gender && errors.gender)} sx={{ ...theme.typography.customInput }}>
@@ -294,13 +312,14 @@ const AuthRegister = ({ ...others }) => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 label="Gender"
+                data-testid="gender-select"
               >
                 <MenuItem value="male">Male</MenuItem>
                 <MenuItem value="female">Female</MenuItem>
                 <MenuItem value="other">Other</MenuItem>
               </Select>
               {touched.gender && errors.gender && (
-                <FormHelperText error id="standard-weight-helper-text-gender-register">
+                <FormHelperText error id="standard-weight-helper-text-gender-register" data-testid="gender-error">
                   {errors.gender}
                 </FormHelperText>
               )}
@@ -321,6 +340,7 @@ const AuthRegister = ({ ...others }) => {
               InputLabelProps={{
                 shrink: true,
               }}
+              data-testid="birthday-input"
             />
             <TextField
               fullWidth
@@ -334,6 +354,7 @@ const AuthRegister = ({ ...others }) => {
               error={Boolean(touched.occupation && errors.occupation)}
               helperText={touched.occupation && errors.occupation}
               sx={{ ...theme.typography.customInput }}
+              data-testid="occupation-input"
             />
 
             <TextField
@@ -348,6 +369,7 @@ const AuthRegister = ({ ...others }) => {
               error={Boolean(touched.jobsSeeking && errors.jobsSeeking)}
               helperText={touched.jobsSeeking && errors.jobsSeeking}
               sx={{ ...theme.typography.customInput }}
+              data-testid="jobs-seeking-input"
             />
 
             <TextField
@@ -362,6 +384,7 @@ const AuthRegister = ({ ...others }) => {
               error={Boolean(touched.skills && errors.skills)}
               helperText={touched.skills && errors.skills}
               sx={{ ...theme.typography.customInput }}
+              data-testid="skills-input"
             />
 
 
@@ -374,6 +397,7 @@ const AuthRegister = ({ ...others }) => {
                       onChange={(event) => setChecked(event.target.checked)} 
                       name="checked" 
                       color="primary" 
+                      data-testid="terms-checkbox"
                     />
                   }
                   label={
@@ -390,7 +414,7 @@ const AuthRegister = ({ ...others }) => {
             
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
-                <FormHelperText error>{errors.submit}</FormHelperText>
+                <FormHelperText error data-testid="submit-error">{errors.submit}</FormHelperText>
               </Box>
             )}
 
@@ -404,6 +428,7 @@ const AuthRegister = ({ ...others }) => {
                   type="submit"
                   variant="contained"
                   color="secondary"
+                  data-testid="sign-up-button"
                 >
                   Sign up
                 </Button>
