@@ -2,25 +2,30 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.18.0]
 
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn' 
-    - run: yarn install 
-    - run: yarn build
-    # - run: yarn test 
+        node-version: 18
+    - run: yarn install
+
+    - name: Lint Code
+      run: yarn lint 
+
+    - name: Security Audit
+      run: yarn audit 
+
+    # - name: Run Tests
+    #   run: yarn test
+
+    - name: Build Project
+      run: yarn build
