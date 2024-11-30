@@ -13,6 +13,11 @@ export default defineConfig({
   define: {
     global: 'window'
   },
+  build: {
+    outDir: 'dist',       // 指定輸出目錄
+    minify: 'esbuild',    // 使用 esbuild 進行壓縮
+    cssCodeSplit: true,   // 啟用 CSS 拆分
+  },
   resolve: {
     // alias: [
     //   {
