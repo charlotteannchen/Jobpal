@@ -10,7 +10,7 @@
   "type": "module",
   "homepage": "https://berrydashboard.io/free",
   "scripts": {
-    "start": "env-cmd -f .env vite --host --mode production",
+    "start": "serve -s dist -l $PORT",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -51,6 +51,7 @@
     "react-select": "^5.8.3",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
+    "serve": "^14.2.4",
     "swr": "^2.2.5",
     "vite": "^5.2.10",
     "vite-jsconfig-paths": "^2.0.1",
