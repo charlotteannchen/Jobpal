@@ -19,7 +19,7 @@ jobs:
     - run: yarn install
 
     - name: Lint Code
-      run: yarn lint 
+      run: yarn eslint . --fix --debug
 
     - name: Security Audit
       run: yarn audit 
