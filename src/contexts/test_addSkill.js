@@ -1,4 +1,4 @@
-import { getSkillDetails, deleteSkill, addSkill, updateSkill } from './FirestoreAPI.js';
+import { addSkill } from './FirestoreAPI.js';
 
 const skill = {
     name: '3',
@@ -8,14 +8,15 @@ const skill = {
     n_LM: 3,
     n_finished: 3,
     status: false,
-    note: '',
-}
+    note: ''
+};
 
-const userId = sessionStorage.getItem('userId');;
+const userId = sessionStorage.getItem('userId');
 
-addSkill(userId, skill).then(response => {
-    console.log('Skill added with ID:', response.skillId);
-})
-.catch(error => {
-    console.error('Error:', error);
-});
+addSkill(userId, skill)
+    .then((response) => {
+        console.log('Skill added with ID:', response.skillId);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });

@@ -5,13 +5,13 @@ export async function fetchSkill(skillId) {
     try {
         // Making GET request to fetch skill data
         const response = await axios.get(`${import.meta.env.VITE_APP_API_BASE_URL}/skills/${skillId}`);
-        
+
         // Return the data if successful
         return response.data;
     } catch (err) {
         // Log error to console
-        console.error("Error fetching skill:", err);
-        
+        console.error('Error fetching skill:', err);
+
         // Throw error to be handled by the calling function
         throw new Error(`Failed to fetch skill with id ${skillId}`);
     }

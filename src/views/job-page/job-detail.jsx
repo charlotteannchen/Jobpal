@@ -440,7 +440,7 @@ const JobDetail = () => {
               onChange={(e) => setSelectedOption(e.target.value)}
             >
               <option value="">select a skill</option>
-              {Skills.map(Skill => (
+              {Skills.filter(Skill => !pageItem.related_skill.includes(Skill.id)).map(Skill => (
                 <option key={Skill.id} value={Skill.id}>
                   {Skill.name}
                 </option>
