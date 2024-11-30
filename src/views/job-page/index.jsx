@@ -15,7 +15,7 @@ import {getAllJobs} from'../../contexts/FirestoreAPI';
 
 // ===============================|| Job BOX ||=============================== //
 
-const JobBox = ({ jobId, label }) => {
+const JobBox = ({ jobId, label, ...props  }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ const JobBox = ({ jobId, label }) => {
   };
 
   return (
-    <Card sx={{ mb: 3, boxShadow: 1 }}>
+    <Card sx={{ mb: 3, boxShadow: 1 }} {...props}>
       <Box
         onClick={handleClick} // 在点击时调用保存逻辑
         sx={{
@@ -47,7 +47,8 @@ const JobBox = ({ jobId, label }) => {
 };
 
 JobBox.propTypes = {
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  jobId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 // ============================|| UTILITIES SHADOW ||============================ //
@@ -103,7 +104,7 @@ const JobPage = () => {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <JobBox jobId={-1} label='+' />
+                <JobBox jobId={-1} label='+' data-testid="add-listed-job" />
               </Grid>
             </Grid>
           </SubCard>
@@ -117,7 +118,7 @@ const JobPage = () => {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <JobBox jobId={-1} label='+' />
+                <JobBox jobId={-1} label='+' data-testid="add-learning-job" />
               </Grid>
             </Grid>
           </SubCard>
@@ -131,7 +132,7 @@ const JobPage = () => {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <JobBox jobId={-1} label='+' />
+                <JobBox jobId={-1} label='+' data-testid="add-applied-job" />
               </Grid>
             </Grid>
           </SubCard>
@@ -145,7 +146,7 @@ const JobPage = () => {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <JobBox jobId={-1} label='+' />
+                <JobBox jobId={-1} label='+' data-testid="add-interviewing-job" />
               </Grid>
             </Grid>
           </SubCard>
@@ -159,7 +160,7 @@ const JobPage = () => {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <JobBox jobId={-1} label='+' />
+                <JobBox jobId={-1} label='+' data-testid="add-finished-job" />
               </Grid>
             </Grid>
           </SubCard>

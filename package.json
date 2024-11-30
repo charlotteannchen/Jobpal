@@ -32,6 +32,7 @@
     "@mui/utils": "^5.15.11",
     "@reduxjs/toolkit": "^2.2.1",
     "@tabler/icons-react": "^2.47.0",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
     "@vitejs/plugin-react": "^4.2.1",
     "apexcharts": "^3.46.2",
