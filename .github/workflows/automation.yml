@@ -29,22 +29,16 @@ jobs:
 
   notify-slack:
     runs-on: ubuntu-latest
-    needs: trigger-ci
     steps:
       - name: Send Notification to Slack
-        uses: slackapi/slack-github-action@v1.23.0
+        uses: slackapi/slack-github-action@v2.0.0
         with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
-            {
-              "channel": "C083HKV9BL1", 
-              "text": "🚀 CI/CD pipeline triggered at 9:00 AM UTC. Please check the workflow results.",
-              "attachments": [
-                {
-                  "color": "#36a64f",
-                  "title": "CI/CD Workflow Details",
-                  "title_link": "https://github.com/charlotteannchen/Jobpal-test/actions/runs/${{ github.run_id }}"
-                }
-              ]
-            }
-        env:
-            SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            text: "🚀 CI/CD pipeline triggered at 9:00 AM UTC. Please check the workflow results."
+            attachments:
+              - color: "#36a64f"
+                title: "CI/CD Workflow Details"
+                title_link: "https://github.com/charlotteannchen/Jobpal-test/actions/runs/${{ github.run_id }}"
