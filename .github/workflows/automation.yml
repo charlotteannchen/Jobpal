@@ -12,17 +12,16 @@ jobs:
       - name: Trigger CI Workflow
         uses: actions/github-script@v6
         with:
-          script: |
-            const workflow = 'CI';
-            const ref = 'main';
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            await github.actions.createWorkflowDispatch({
-              owner,
-              repo,
-              workflow_id: workflow,
-              ref
-            });
+            script: |
+                const workflowFileName = 'ci.yml';
+                const ref = 'main'; 
+                await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: workflowFileName,
+                ref: ref
+                });
+            github-token: ${{ secrets.GITHUB_TOKEN }}
 
   notify-slack:
     runs-on: ubuntu-latest
@@ -33,7 +32,7 @@ jobs:
         with:
           payload: |
             {
-              "channel": "#monitoring", # 修改為目標頻道名稱或 ID
+              "channel": "#monitoring", 
               "text": "🚀 CI/CD pipeline triggered at 9:00 AM UTC. Please check the workflow results.",
               "attachments": [
                 {
