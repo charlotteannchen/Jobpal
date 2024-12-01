@@ -72,9 +72,6 @@ const JobDetail = () => {
   const [isAdding, setIsAdding] = useState(false); // 新增状态控制编辑模式
   const [selectedOption, setSelectedOption] = useState('');
 
-  // 模擬下拉選單選項
-  const options = ['選項1', '選項2', '選項3'];
-
   const navigate = useNavigate();
   const userId = sessionStorage.getItem('userId');
   const jobId = sessionStorage.getItem('jobId');
@@ -146,7 +143,7 @@ const JobDetail = () => {
           const updatedRelatedSkills = [...pageItem.related_skill, selectedOption];
           const updatedPageItem = { ...pageItem, related_skill: updatedRelatedSkills }; // 更新 pageItem
           const skillToUpdate = await getSkillDetails(userId, selectedOption);
-          skillToUpdate.related_job.push({id: selectedOption, name: pageItem.name});
+          skillToUpdate.related_job.push({id: jobId, name: pageItem.name});
           updateJob(userId, jobId, updatedPageItem);
           updateSkill(userId, selectedOption, skillToUpdate);
           setPageItem(updatedPageItem);
@@ -156,15 +153,17 @@ const JobDetail = () => {
     updateSkillInfo(); // 調用異步函數
   }, [selectedOption]); // 依賴 selectedOption
 
-  const DeleteARelatedSkill = async (skillId) => {
+  const DeleteARelatedSkill = async (userId, jobId, skillId) => {
     console.log("Delete related skill button slicked.")
     const updatedList = pageItem.related_skill.filter(item => item !== skillId);
     const updatedPageItem = { ...pageItem, related_skill: updatedList };
     const skillToUpdate = await getSkillDetails(userId, skillId);
-    skillToUpdate.related_job.push(selectedOption);
+    console.log(skillToUpdate.related_job);
     skillToUpdate.related_job = skillToUpdate.related_job.filter(item => item.id !== jobId);
+    console.log(jobId);
+    console.log(skillToUpdate.related_job.filter(item => item.id !== jobId));
     updateJob(userId, jobId, updatedPageItem);
-    updateSkill(userId, selectedOption, skillToUpdate);
+    updateSkill(userId, skillId, skillToUpdate);
     setPageItem(updatedPageItem);
   };
 
@@ -454,7 +453,7 @@ const JobDetail = () => {
             <Grid container spacing={2}>
               {Skills.filter(Skill => Skill.status === 0 && pageItem.related_skill.includes(Skill.id)).map(Skill => (
                 <SkillBox key={Skill.id} skillId={Skill.id} label={Skill.name}
-                  handleDelete={() => DeleteARelatedSkill(Skill.id)} 
+                  handleDelete={() => DeleteARelatedSkill(userId, jobId, Skill.id)} 
                   />
               ))}
             </Grid>
@@ -463,7 +462,7 @@ const JobDetail = () => {
             <Grid container spacing={2}>
               {Skills.filter(Skill => Skill.status === 1 && pageItem.related_skill.includes(Skill.id)).map(Skill => (
                 <SkillBox key={Skill.id} skillId={Skill.id} label={Skill.name}
-                  handleDelete={() => DeleteARelatedSkill(Skill.id)} 
+                  handleDelete={() => DeleteARelatedSkill(userId, jobId, Skill.id)} 
                 />
               ))}
             </Grid>
