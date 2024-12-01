@@ -205,9 +205,9 @@ const AuthLogin = ({ ...others }) => {
                 }
                 label="Remember me"
               />
-              {/* <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
+              <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
                 Forgot Password?
-              </Typography> */}
+              </Typography>
             </Stack>
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
