@@ -123,6 +123,17 @@ const LMDetail = () => {
       }
     };
 
+    const handleDownload = (textToDownload, filename) => {
+      const blob = new Blob([textToDownload], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+  
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename; // 文件名
+      a.click();
+      window.URL.revokeObjectURL(url); // 釋放資源
+    };
+
     const checkItemName = (name) => {
       if (!name || name.trim() === '') {
         return "Learning material name is required"; // 如果是空或只有空格
@@ -237,9 +248,14 @@ const LMDetail = () => {
                 onChange={handleChange}
               />
             </Typography>
-            
-            {/* save按钮 */}
+
             <Box sx={{ mt: 3, display: "flex",justifyContent: 'flex-end' }}>
+              {/* Download按钮 */}
+              <Button variant="contained" color="primary" onClick={
+                () => handleDownload(modifiedItem.note, modifiedItem.name +'_note.txt')}>
+                Download
+              </Button>
+              {/* save按钮 */}
               <Button variant="contained" color="primary" onClick={handleSave}>
                 {isEditing ? "Save all" : "Save notes"}
               </Button>
