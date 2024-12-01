@@ -36,7 +36,7 @@ jobs:
         with:
           payload: |
             {
-              "channel": "#monitoring", 
+              "channel": "C083HKV9BL1", 
               "text": "🚀 CI/CD pipeline triggered at 9:00 AM UTC. Please check the workflow results.",
               "attachments": [
                 {
