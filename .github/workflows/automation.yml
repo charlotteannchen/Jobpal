@@ -5,6 +5,10 @@ on:
     - cron: "0 9 * * *" # 每天早上 9:00 UTC 時間
   workflow_dispatch: # 允許手動觸發
 
+permissions:
+  actions: write 
+  contents: read 
+
 jobs:
   trigger-ci:
     runs-on: ubuntu-latest
