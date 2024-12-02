@@ -230,6 +230,7 @@ const LMDetail = () => {
               const updatedPageItem = { ...pageItem, status: 1 - pageItem.status };
               await updateLM(userId, skillId, LMId, updatedPageItem);
               setPageItem(updatedPageItem); // 更新狀態
+              setModifiedItem(updatedPageItem);
             }} 
           >
             {pageItem.status === 0 ? "In progress" : "Finished"}
