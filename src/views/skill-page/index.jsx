@@ -15,7 +15,7 @@ import {getAllSkills} from'../../contexts/FirestoreAPI';
 
 // ===============================|| Skill BOX ||=============================== //
 
-const SkillBox = ({ skillId, label }) => {
+const SkillBox = ({ skillId, label, ...props  }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ const SkillBox = ({ skillId, label }) => {
   };
 
   return (
-    <Card sx={{ mb: 3, boxShadow: 1 }}>
+    <Card sx={{ mb: 3, boxShadow: 1 }} {...props}>
       <Box
         onClick={handleClick} // 在点击时调用保存逻辑
         sx={{
@@ -39,7 +39,6 @@ const SkillBox = ({ skillId, label }) => {
           textDecoration: 'none' // 取消超連結底線
         }}
       >
-        {!label && <Box sx={{ color: 'inherit' }}>boxShadow: {shadow}</Box>}
         {label && <Box sx={{ color: 'inherit' }}>{label}</Box>}
       </Box>
     </Card>
@@ -47,7 +46,8 @@ const SkillBox = ({ skillId, label }) => {
 };
 
 SkillBox.propTypes = {
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  skillId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
 // ============================|| UTILITIES SHADOW ||============================ //
@@ -103,7 +103,7 @@ const SkillPage = () => {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <SkillBox skillId={-1} label='+' />
+                <SkillBox skillId={-1} label='+'  data-testid="inprogress-skill" />
               </Grid>
             </Grid>
           </SubCard>
@@ -117,7 +117,7 @@ const SkillPage = () => {
                 </Grid>
               ))}
               <Grid item xs={12} sm={6} md={4} lg={3}>
-                <SkillBox skillId={-1} label='+' />
+                <SkillBox skillId={-1} label='+'  data-testid="finished-skill" />
               </Grid>
             </Grid>
           </SubCard>
