@@ -49,7 +49,8 @@ describe('AuthRegister', () => {
     mockNavigate.mockClear();
   });
 
-  test('prompts the user to fill in the required fields if fields are left blank', async () => {
+  // prompts the user to fill in the required fields if fields are left blank
+  test('User clicks the “Register” button', async () => {
     renderWithProviders(<AuthRegister />, { providerProps });
 
     fireEvent.click(screen.getByTestId('sign-up-button'));
@@ -61,7 +62,8 @@ describe('AuthRegister', () => {
     expect(await screen.findByText(/Please Confirm password/i)).toBeInTheDocument();
   });
 
-  test('displays a registration failure message if the registration fails', async () => {
+  // displays a registration failure message if the registration fails
+  test('User enters the username, password, email, and other optional information. After entering the information, the user clicks the “Register” button.', async () => {
     mockRegister.mockRejectedValueOnce(new Error('Registration failed'));
 
     renderWithProviders(<AuthRegister />, { providerProps });

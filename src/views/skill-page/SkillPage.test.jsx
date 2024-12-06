@@ -33,7 +33,8 @@ describe('SkillPage', () => {
     sessionStorage.clear();
   });
 
-  test('Displays loading state and fetches skill data', async () => {
+  // Displays loading state and fetches skill data
+  test('The user clicks on “Skill” section.', async () => {
     FirestoreAPI.getAllSkills.mockResolvedValueOnce([
       { id: '1', name: 'JavaScript', status: 0 },
       { id: '2', name: 'Python', status: 1 },
@@ -54,6 +55,7 @@ describe('SkillPage', () => {
     expect(screen.getByText(/python/i)).toBeInTheDocument();
   });
 
+  // Displays error state if skill data fails to load
   test('Displays error state if skill data fails to load', async () => {
     FirestoreAPI.getAllSkills.mockRejectedValueOnce(new Error('Failed to fetch skills'));
 
@@ -71,7 +73,8 @@ describe('SkillPage', () => {
     expect(screen.getByText(/failed to fetch skills/i)).toBeInTheDocument();
   });
 
-  test('Redirects to skill detail page when a skill is clicked', async () => {
+  // Redirects to skill detail page when a skill is clicked
+  test('View Skill Details.', async () => {
     FirestoreAPI.getAllSkills.mockResolvedValueOnce([
       { id: '1', name: 'JavaScript', status: 0 },
     ]);
@@ -91,7 +94,8 @@ describe('SkillPage', () => {
     expect(sessionStorage.getItem('skillId')).toBe('1');
   });
 
-  test('Displays skills under correct categories', async () => {
+  // Displays skills under correct categories
+  test('The user clicks on a specific skill.', async () => {
     FirestoreAPI.getAllSkills.mockResolvedValueOnce([
       { id: '1', name: 'JavaScript', status: 0 },
       { id: '2', name: 'Python', status: 1 },
@@ -109,7 +113,8 @@ describe('SkillPage', () => {
     expect(screen.getByText(/python/i)).toBeInTheDocument(); // Finished
   });
 
-  test('Adds a new skill when "+" is clicked', async () => {
+  // Adds a new skill when "+" is clicked
+  test('Edit Skill Details.', async () => {
     FirestoreAPI.getAllSkills.mockResolvedValueOnce([
       { id: '1', name: 'JavaScript', status: 0 },
     ]);

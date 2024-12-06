@@ -38,7 +38,8 @@ describe('AuthLogin', () => {
     mockLogin.mockClear();
   });
 
-  test('prompts the user to fill in the required fields if username or password is blank', async () => {
+  // prompts the user to fill in the required fields if username or password is blank
+  test('The user fills in the username and password and presses the button “LOGIN”', async () => {
     renderWithProviders(<AuthLogin />, { providerProps });
 
     fireEvent.click(screen.getByRole('button', { name: 'Sign in' }));

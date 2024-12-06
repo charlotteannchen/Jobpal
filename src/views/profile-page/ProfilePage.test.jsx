@@ -53,7 +53,8 @@ describe('ProfilePage', () => {
     mockUpdateUserData.mockClear();
   });
 
-  test('All fields become editable when "Edit Profile" is clicked', async () => {
+  // All fields become editable when "Edit Profile" is clicked
+  test('The user clicks on “Profile”. The user clicks the small pencil next to the profile picture.', async () => {
     renderWithProviders(<ProfilePage />);
 
     // Ensure the "Edit Profile" button is present
@@ -86,7 +87,8 @@ describe('ProfilePage', () => {
     expect(skillsInput).toBeEnabled();
   });
 
-  test('Valid user information is saved successfully', async () => {
+  // Valid user information is saved successfully
+  test('The user edits their user information. The user clicks the “Save” button.', async () => {
     mockUpdateUserData.mockResolvedValueOnce({ success: true });
 
     renderWithProviders(<ProfilePage />);
@@ -168,7 +170,9 @@ describe('ProfilePage', () => {
     expect(screen.getByText('Software Developer')).toBeInTheDocument();
     expect(screen.getByText('JavaScript, React')).toBeInTheDocument();
   });
-  test('Entered information is cleared and reverted when "Cancel" is clicked', async () => {
+
+  // Entered information is cleared and reverted when "Cancel" is clicked
+  test('The user clicks the “Discard” button.', async () => {
     renderWithProviders(<ProfilePage />);
 
     // Click the "Edit Profile" button to enter edit mode

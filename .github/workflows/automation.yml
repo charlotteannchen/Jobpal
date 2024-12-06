@@ -1,8 +1,8 @@
 name: Automation
 
 on:
-  schedule:
-    - cron: "0 9 * * *" # 每天早上 9:00 UTC 時間
+  # schedule:
+  #   - cron: "0 9 * * *" # 每天早上 9:00 UTC 時間
   workflow_dispatch: # 允許手動觸發
 
 permissions:

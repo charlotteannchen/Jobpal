@@ -32,7 +32,8 @@ describe('JobPage', () => {
     sessionStorage.clear();
   });
 
-  test('Displays loading state and fetches job data', async () => {
+  // Displays loading state and fetches job data
+  test('The user clicks on “Job”.', async () => {
     FirestoreAPI.getAllJobs.mockResolvedValueOnce([
       { id: '1', name: 'Frontend Developer', status: '0' },
       { id: '2', name: 'Backend Developer', status: '1' },
@@ -53,6 +54,7 @@ describe('JobPage', () => {
     expect(screen.getByText(/backend developer/i)).toBeInTheDocument();
   });
 
+  // Displays error state if job data fails to load
   test('Displays error state if job data fails to load', async () => {
     FirestoreAPI.getAllJobs.mockRejectedValueOnce(new Error('Failed to fetch jobs'));
 
@@ -70,7 +72,8 @@ describe('JobPage', () => {
     expect(screen.getByText(/failed to fetch jobs/i)).toBeInTheDocument();
   });
 
-  test('Redirects to job detail page when a job is clicked', async () => {
+  // Redirects to job detail page when a job is clicked
+  test('View Skill Details.', async () => {
     FirestoreAPI.getAllJobs.mockResolvedValueOnce([
       { id: '1', name: 'Frontend Developer', status: '0' },
     ]);
@@ -90,7 +93,8 @@ describe('JobPage', () => {
     expect(sessionStorage.getItem('jobId')).toBe('1');
   });
 
-  test('Displays jobs under correct categories', async () => {
+  // Displays jobs under correct categories
+  test('The user clicks on any job in the list. ', async () => {
     FirestoreAPI.getAllJobs.mockResolvedValueOnce([
       { id: '1', name: 'Frontend Developer', status: '0' },
       { id: '2', name: 'Backend Developer', status: '1' },
@@ -114,7 +118,8 @@ describe('JobPage', () => {
     expect(screen.getByText(/devops engineer/i)).toBeInTheDocument(); // Finished
   });
 
-  test('Adds a new job when "+" is clicked', async () => {
+  // Adds a new job when "+" is clicked
+  test('Edit Job Details', async () => {
     FirestoreAPI.getAllJobs.mockResolvedValueOnce([]);
 
     renderWithProviders(<JobPage />);
