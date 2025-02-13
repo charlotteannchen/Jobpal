@@ -44,12 +44,12 @@ Some of our classmates are going to graduate, what they are going to do next is 
 
 This project is built with 
 
-* [![React][React.js]][React-url]
-* [![Node.js][Nodejs]][Nodejs-url]
-* [![Vite][Vite]][Vite-url]
-* [![Vitest][Vitest]][Vitest-url]
-* [![GitHubActions][GitHubActions]][GitHubActions-url]
-* [![Heroku][Heroku]][Heroku-url]
+* <a href="React-url"><img src="React.js" alt="React" style="width:50px; height:auto;" /></a>
+* <a href="Nodejs-url"><img src="Node.js" alt="Node.js" style="width:50px; height:auto;" /></a>
+* <a href="Vite-url"><img src="Vite" alt="Vite" style="width:50px; height:auto;" /></a>
+* <a href="Vitest-url"><img src="Vitest" alt="Vitest" style="width:50px; height:auto;" /></a>
+* <a href="GitHubActions-url"><img src="GitHubActions" alt="GitHubActions" style="width:50px; height:auto;" /></a>
+* <a href="Heroku-url"><img src="Heroku" alt="Heroku" style="width:50px; height:auto;" /></a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
