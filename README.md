@@ -31,7 +31,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![JobPal-logo](https://hackmd.io/_uploads/rkzuTYoFyg.jpg)
+![JobPal-logo](src/assets/images/JobPal-logo.png)
 
 This project is to construct an online job seeking and required skill learning web application to help nearly graduates to find jobs. This system consists of skill learning management, learning progress tracking and job interview tracking functionality.
 Some of our classmates are going to graduate, what they are going to do next is finding a job. A job seeking application can help by seeking job opportunities, listing required skill and learning resources, and monitoring interview progress.  Even for those who already have a job, skill learning functionality can act as an auxiliary tool to self-improve. :muscle:
@@ -97,7 +97,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-### Top contributors:
+## Top contributors:
 
 Sort by the first letter of the name:
 
