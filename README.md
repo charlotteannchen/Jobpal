@@ -45,6 +45,11 @@ Some of our classmates are going to graduate, what they are going to do next is 
 This project is built with 
 
 * [![React][React.js]][React-url]
+* [![Node.js][Nodejs]][Nodejs-url]
+* [![Vite][Vite]][Vite-url]
+* [![Vitest][Vitest]][Vitest-url]
+* [![GitHubActions][GitHubActions]][GitHubActions-url]
+* [![Heroku][Heroku]][Heroku-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -97,7 +102,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## Top contributors:
+## Top contributors
 
 Sort by the first letter of the name:
 
@@ -119,5 +124,16 @@ Sort by the first letter of the name:
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React.js]: src/assets/images/React.png
 [React-url]: https://reactjs.org/
+[Node.js]: src/assets/images/Node-js.png
+[Nodejs-url]: https://nodejs.org/en
+[Vite]: src/assets/images/Vite.png
+[Vite-url]: https://vite.dev/
+[Vitest]: src/assets/images/Vitest.png
+[Vitest-url]: https://vitest.dev/
+[GitHubActions]: src/assets/images/GitHubActions.png
+[GitHubActions-url]: https://github.com/features/actions
+[Heroku]: src/assets/images/Heroku.png
+[Heroku-url]: https://www.heroku.com/
+
