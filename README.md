@@ -1,7 +1,7 @@
 # JobPal
+<a id="readme-top"></a>
 <!-- PROJECT LOGO -->
 <div align="center">
-  <h3 align="center">JobPal</h3>
   <p align="center">
     <a href="https://youtu.be/9akIjycSzNw">View Demo</a>
   </p>
