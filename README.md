@@ -1,4 +1,4 @@
-# JobPal {#readme-top}
+# JobPal
 <!-- PROJECT LOGO -->
 <div align="center">
   <h3 align="center">JobPal</h3>
@@ -20,7 +20,6 @@
       <a href="#getting-started">Getting Started</a>
     </li>
     <li><a href="#top-contributors">Top contributors</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
