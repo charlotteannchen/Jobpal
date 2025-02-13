@@ -94,16 +94,6 @@ Sort by the first letter of the name:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 [React.js]: src/assets/images/React.png
 [React-url]: https://reactjs.org/
