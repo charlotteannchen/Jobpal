@@ -14,9 +14,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -37,22 +34,6 @@ This project is to construct an online job seeking and required skill learning w
 Some of our classmates are going to graduate, what they are going to do next is finding a job. A job seeking application can help by seeking job opportunities, listing required skill and learning resources, and monitoring interview progress.  Even for those who already have a job, skill learning functionality can act as an auxiliary tool to self-improve. :muscle:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Built With
-
-This project is built with 
-
-* <a href="React-url"><img src="React.js" alt="React" style="width:50px; height:auto;" /></a>
-* <a href="Nodejs-url"><img src="Node.js" alt="Node.js" style="width:50px; height:auto;" /></a>
-* <a href="Vite-url"><img src="Vite" alt="Vite" style="width:50px; height:auto;" /></a>
-* <a href="Vitest-url"><img src="Vitest" alt="Vitest" style="width:50px; height:auto;" /></a>
-* <a href="GitHubActions-url"><img src="GitHubActions" alt="GitHubActions" style="width:50px; height:auto;" /></a>
-* <a href="Heroku-url"><img src="Heroku" alt="Heroku" style="width:50px; height:auto;" /></a>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
