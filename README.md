@@ -1,3 +1,4 @@
+# JobPal {#readme-top}
 <!-- PROJECT LOGO -->
 <div align="center">
   <h3 align="center">JobPal</h3>
@@ -18,7 +19,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
     </li>
-    <li><a href="#contributing">Top contributors</a></li>
+    <li><a href="#top-contributors">Top contributors</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -82,7 +83,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+<!-- TOP CONTRIBUTORS -->
 ## Top contributors
 
 Sort by the first letter of the name:
