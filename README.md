@@ -1,8 +1,57 @@
-# Getting Started with Create React App
+<!-- PROJECT LOGO -->
+<div align="center">
+  <h3 align="center">JobPal</h3>
+  <p align="center">
+    <a href="https://youtu.be/9akIjycSzNw">View Demo</a>
+  </p>
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+    </li>
+    <li><a href="#contributing">Top contributors</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+![JobPal-logo](https://hackmd.io/_uploads/rkzuTYoFyg.jpg)
+
+This project is to construct an online job seeking and required skill learning web application to help nearly graduates to find jobs. This system consists of skill learning management, learning progress tracking and job interview tracking functionality.
+Some of our classmates are going to graduate, what they are going to do next is finding a job. A job seeking application can help by seeking job opportunities, listing required skill and learning resources, and monitoring interview progress.  Even for those who already have a job, skill learning functionality can act as an auxiliary tool to self-improve. :muscle:
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+### Built With
+
+This project is built with 
+
+* [![React][React.js]][React-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
 
 In the project directory, you can run:
 
@@ -44,32 +93,31 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### Top contributors:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Sort by the first letter of the name:
 
-### Analyzing the Bundle Size
+* Pei-An (Charlotte), Chen
+* Gueter Josmy Faure
+* Steve Liu
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Deployment
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `yarn build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<!-- MARKDOWN LINKS & IMAGES -->
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
